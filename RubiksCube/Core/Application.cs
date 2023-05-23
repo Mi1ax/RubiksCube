@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using ImGuiNET;
 using Color = Raylib_cs.Color;
 
 namespace RubiksCube.Core;
@@ -30,6 +31,7 @@ public class Application
             WindowSize.Height, 
             Title
         );
+        RayImGui.Setup();
     }
 
     public Size WindowSize
@@ -59,8 +61,16 @@ public class Application
         {
             BeginDrawing();
             ClearBackground(Color.BLACK);
+            
+            RayImGui.Begin();
+            {
+                ImGui.ShowDemoWindow();
+            }
+            RayImGui.End();
+            
             EndDrawing();
         }
+        RayImGui.Shutdown();
         CloseWindow();
     }
 }
