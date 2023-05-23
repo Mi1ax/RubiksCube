@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using ImGuiNET;
+using RubiksCube.Core.Managers;
 using RubiksCube.Scenes;
 using Color = Raylib_cs.Color;
 
@@ -18,8 +18,6 @@ public class Application
 
     private WindowSpec _windowSpecification;
     private bool _isRunning;
-
-    private SceneManager _sceneManager;
     
     public Application(WindowSpec windowSpecification)
     {
@@ -36,10 +34,8 @@ public class Application
         );
         RayImGui.Setup();
 
-        _sceneManager = new SceneManager();
-        
-        _sceneManager.AddScene(new MainScene());
-        _sceneManager.AddScene(new SecondScene());
+        SceneManager.AddScene(new MainScene());
+        SceneManager.SelectScene(0);
     }
 
     public Size WindowSize
@@ -70,16 +66,17 @@ public class Application
             BeginDrawing();
             ClearBackground(Color.BLACK);
             
-            _sceneManager.OnUpdate();
+            SceneManager.OnUpdate();
             
             RayImGui.Begin();
             {
-                _sceneManager.ImGuiSceneSelection();
+                SceneManager.ImGuiSceneSelection();
             }
             RayImGui.End();
             
             EndDrawing();
         }
+        SceneManager.Shutdown();
         RayImGui.Shutdown();
         CloseWindow();
     }

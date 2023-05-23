@@ -1,44 +1,46 @@
 ﻿using ImGuiNET;
 
-namespace RubiksCube.Core;
+namespace RubiksCube.Core.Managers;
 
-public class SceneManager
+public static class SceneManager
 {
-    private static SceneManager? _instance;
-    public static SceneManager Instance => _instance ?? throw new ArgumentNullException(nameof(_instance));
+    private static Scene? _selectedScene;
+    private static int _selectedSceneIndex = -1;
+    private static readonly Dictionary<string, Scene> _scenes;
     
-    private Scene? _selectedScene;
-    private int _selectedSceneIndex = -1;
-    private readonly Dictionary<string, Scene> _scenes;
-    
-    public SceneManager()
+    static SceneManager()
     {
-        if (_instance != null)
-            throw new Exception("Only one SceneManager instance is allowed");
-        _instance = this;
         _scenes = new Dictionary<string, Scene>();
     }
 
-    public void AddScene(Scene scene, bool rewriteExisting = false)
+    public static void AddScene(Scene scene, bool rewriteExisting = false)
     {
         if (!rewriteExisting && _scenes.ContainsKey(scene.Name))
             throw new Exception($"Scene with name: {scene.Name} already exist");
         _scenes[scene.Name] = scene;
     }
 
-    public void SelectScene(int index)
+    public static void SelectScene(int index)
     {
         _selectedSceneIndex = index;
         _selectedScene?.OnExit();
         _selectedScene = _scenes.ElementAt(index).Value;
     }
 
-    public void OnUpdate()
+    public static void OnUpdate()
     {
         _selectedScene?.OnUpdate();
     }
 
-    public void ImGuiSceneSelection()
+    public static void Shutdown()
+    {
+        foreach (var scene in _scenes)
+        {
+            scene.Value.Unload();
+        }
+    }
+
+    public static void ImGuiSceneSelection()
     {
         ImGui.Begin("Scenes");
         {
