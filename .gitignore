@@ -3,9 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
-# Do not ignore assets folder
-!RubiksCube/Assets/**.obj
-
 # Jetbrains folder
 .idea
 
@@ -481,3 +478,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+!RubiksCube/Assets/*.obj

@@ -21,6 +21,11 @@ public class SecondScene : Scene
 
     public override void OnExit()
     {
-        TraceLog(TraceLogLevel.LOG_INFO, $"SCENE: [{Name}] Exit");
+        TraceLog(TraceLogLevel.LOG_INFO, $"SCENE: [{Name}] Exited");
+    }
+    
+    public override void Unload()
+    {
+        TraceLog(TraceLogLevel.LOG_INFO, $"SCENE: [{Name}] Unloaded");
     }
 }

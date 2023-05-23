@@ -77,6 +77,7 @@ public class Application
             EndDrawing();
         }
         SceneManager.Shutdown();
+        ResourceManager.Shutdown();
         RayImGui.Shutdown();
         CloseWindow();
     }

@@ -14,4 +14,5 @@ public abstract class Scene
     
     public abstract void OnUpdate();
     public abstract void OnExit();
+    public abstract void Unload();
 }
