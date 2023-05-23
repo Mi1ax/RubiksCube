@@ -1,17 +1,17 @@
 ﻿using System.Numerics;
 using RubiksCube.Core;
 
-namespace RubiksCube.Scenes;
+namespace RubiksCube.Application.Scenes;
 
-public class SecondScene : Scene
+public class TestScene : Scene
 {
-    public SecondScene() : base(nameof(SecondScene)) { }
+    public TestScene() : base(nameof(TestScene)) { }
 
-    public override void OnUpdate()
+    public override void Update()
     {
         DrawTextEx(
             GetFontDefault(),
-            nameof(SecondScene),
+            nameof(TestScene),
             new Vector2(Application.WindowSize.Width / 2f, Application.WindowSize.Height / 2f),
             24f,
             2.5f,
@@ -19,7 +19,12 @@ public class SecondScene : Scene
         );
     }
 
-    public override void OnExit()
+    public override void UpdateImGui()
+    {
+        
+    }
+
+    public override void Exit()
     {
         TraceLog(TraceLogLevel.LOG_INFO, $"SCENE: [{Name}] Exited");
     }

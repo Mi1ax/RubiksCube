@@ -12,7 +12,8 @@ public abstract class Scene
         Name = name;
     }
     
-    public abstract void OnUpdate();
-    public abstract void OnExit();
+    public abstract void Update();
+    public abstract void UpdateImGui();
+    public abstract void Exit();
     public abstract void Unload();
 }

@@ -23,13 +23,13 @@ public static class SceneManager
     public static void SelectScene(int index)
     {
         _selectedSceneIndex = index;
-        _selectedScene?.OnExit();
+        _selectedScene?.Exit();
         _selectedScene = _scenes.ElementAt(index).Value;
     }
 
     public static void OnUpdate()
     {
-        _selectedScene?.OnUpdate();
+        _selectedScene?.Update();
     }
 
     public static void Shutdown()
@@ -40,8 +40,10 @@ public static class SceneManager
         }
     }
 
-    public static void ImGuiSceneSelection()
+    public static void UpdateImGui()
     {
+        _selectedScene?.UpdateImGui();
+        
         ImGui.Begin("Scenes");
         {
             foreach (var x in _scenes.Select((keyValuePair, index) => new { keyValuePair, index }))

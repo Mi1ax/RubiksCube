@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
+using RubiksCube.Application.Scenes;
 using RubiksCube.Core.Managers;
-using RubiksCube.Scenes;
 using Color = Raylib_cs.Color;
 
 namespace RubiksCube.Core;
@@ -70,7 +70,7 @@ public class Application
             
             RayImGui.Begin();
             {
-                SceneManager.ImGuiSceneSelection();
+                SceneManager.UpdateImGui();
             }
             RayImGui.End();
             
