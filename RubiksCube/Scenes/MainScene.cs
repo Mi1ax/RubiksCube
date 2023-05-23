@@ -7,29 +7,24 @@ namespace RubiksCube.Scenes;
 public class MainScene : Scene
 {
     private readonly Model _cube;
-    private readonly Camera3D _camera3D;
+    private readonly Camera _camera;
     
     public MainScene() : base(nameof(MainScene))
     {
         ResourceManager.LoadTexture("CubeTexture", "Assets/Textures/Cube.png");
         _cube = ResourceManager.LoadModel("CubeModel", "Assets/Models/cube.obj");
         ResourceManager.SetModelTexture("CubeModel", "CubeTexture");
-        _camera3D = new Camera3D
-        {
-            position = new Vector3(0.0f, 10.0f, 10.0f),
-            target = Vector3.Zero,
-            up = Vector3.UnitY,
-            fovy = 45.0f,
-            projection = CameraProjection.CAMERA_PERSPECTIVE
-        };
+        _camera = new Camera();
     }
     
     public override void OnUpdate()
     {
-        BeginMode3D(_camera3D);
+        _camera.Update();
+        
+        Renderer.Begin(_camera);
         DrawModel(_cube, Vector3.Zero, 1f, Color.WHITE);
         DrawGrid(10, 1f);
-        EndMode3D();
+        Renderer.End();
     }
 
     public override void OnExit()
